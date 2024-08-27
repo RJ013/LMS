@@ -1,0 +1,18 @@
+{
+    "compilerOptions": {
+      "target": "ES2020",                          // Specifies the ECMAScript target version
+      "module": "NodeNext",                        // Uses NodeNext module resolution (ES Modules)
+      "moduleResolution": "NodeNext",              // Sets module resolution strategy to NodeNext
+      "strict": true,                              // Enables strict type-checking options
+      "esModuleInterop": true,                     // Allows default imports from CommonJS modules
+      "forceConsistentCasingInFileNames": true,    // Enforces consistent casing in import paths
+      "skipLibCheck": true,                        // Skips type checking of declaration files
+      "outDir": "./dist",                          // Specifies the output directory for compiled files
+      "rootDir": "./src",                          // Specifies the root directory of your source files
+      "resolveJsonModule": true,                   // Allows importing JSON files
+      "noEmit": false                              // Ensures TypeScript outputs compiled files
+    },
+    "include": ["src"],                            // Includes all TypeScript files in the src folder
+    "exclude": ["node_modules", "dist"]            // Excludes the node_modules and dist folders
+  }
+  

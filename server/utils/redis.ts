@@ -6,6 +6,7 @@ const redisClient = () => {
     const redisPort = process.env.REDIS_PORT || 6379; // Default Redis port
 
     try {
+         
         const redis = new Redis({
             host: redisHost,
             port: redisPort,

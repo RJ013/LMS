@@ -1,9 +1,10 @@
-import { Request,Response,NextFunction } from "express";
+import { Request, Response, NextFunction } from "express";
 import { CatchAsyncError } from "./catchAsyncErrors";
 import ErrorHandler from "../utils/ErrorHandler";
-import  jwt  from "jsonwebtoken";
-import {redis} from '../utils/redis'
-//authenticated user 
+import jwt, { JwtPayload } from "jsonwebtoken";
+import { redis } from '../utils/redis';
+
+// Authenticated user middleware
 export const isAuthenticated = CatchAsyncError(async (req: Request, res: Response, next: NextFunction) => {
     const access_token = req.cookies.access_token;
 
@@ -11,9 +12,11 @@ export const isAuthenticated = CatchAsyncError(async (req: Request, res: Respons
         return next(new ErrorHandler("Please login to access this resource", 400));
     }
 
-    const decoded = jwt.verify(access_token, process.env.ACCESS_TOKEN as string) as JwtPayload | string;
+    // Assuming the JWT payload contains an `id` field for the user
+    const decoded = jwt.verify(access_token, process.env.ACCESS_TOKEN as string) as JwtPayload;
 
-    if ( !decoded._id) {
+    // Check if `decoded` is an object and has the `id` property
+    if (typeof decoded !== "object" || !decoded.id) {
         return next(new ErrorHandler("Access token is not valid", 400));
     }
 
@@ -25,4 +28,4 @@ export const isAuthenticated = CatchAsyncError(async (req: Request, res: Respons
 
     req.user = JSON.parse(user);
     next();
-})
+});

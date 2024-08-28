@@ -18,6 +18,8 @@ interface IRegistrationBody {
     avatar?: string;
 }
 
+
+
 export const registerationUser = CatchAsyncError(async (req: Request, res: Response, next: NextFunction) => {
     try {
         const { name, email, password, avatar } = req.body;
@@ -153,7 +155,7 @@ export const logoutUser = CatchAsyncError(async(req:Request,res:Response,next:Ne
     try {
         res.cookie("access_token","",{maxAge:1});
         res.cookie("refresh_token","",{maxAge:1});
-        const userId = req.user?.id || '';
+        const userId = req.user?._id || '';
         redis.del(userId);
         res.status(200).json({
             success:true,

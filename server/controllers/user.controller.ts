@@ -8,7 +8,7 @@ import ejs from "ejs";
 import path from "path";
 import sendMail from "../utils/sendMail";
 import { sendToken } from "../utils/jwt";
-
+import {redis} from '../utils/redis'
 
 //register user
 interface IRegistrationBody {

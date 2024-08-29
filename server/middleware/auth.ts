@@ -29,3 +29,19 @@ export const isAuthenticated = CatchAsyncError(async (req: Request, res: Respons
     req.user = JSON.parse(user);
     next();
 });
+
+
+//validate user function
+
+
+export const authorizeRoles = (...roles: string[]) => {
+    return (req: Request, res: Response, next: NextFunction) => {
+        const userRole = req.user?.role || '';
+
+        if (!roles.includes(userRole)) {
+            return next(new ErrorHandler(`Role: ${userRole} is not allowed to access this resource`, 403));
+        }
+
+        next();
+    };
+};

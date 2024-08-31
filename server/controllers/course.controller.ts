@@ -2,13 +2,14 @@ import { Request, Response, NextFunction } from "express";
 import ErrorHandler from "../utils/ErrorHandler";
 import { CatchAsyncError } from "../middleware/catchAsyncErrors";
 import cloudinary from "cloudinary";
-import { createCourse } from "../services/course.service";
+import { createCourse, getAllCoursesService } from "../services/course.service";
 import CourseModel from "../models/course.model";
 import { redis } from "../utils/redis";
 import mongoose from "mongoose";
 import ejs from 'ejs';
 import path from "path";
 import sendMail from "../utils/sendMail";
+import notificationModel from "../models/notificationModel";
 
 
 
@@ -173,6 +174,12 @@ export const addQuestion = CatchAsyncError(async (req: Request, res: Response, n
 
         courseContent.questions.push(newQuestion);
 
+        await notificationModel.create({
+            user: req.user?._id,
+            title:"New Question",
+            message:`You have a new Question in ${courseContent.title}`,
+        })
+
         //save the updated course 
         await course?.save();
         res.status(200).json({
@@ -223,7 +230,11 @@ export const addAnswer = CatchAsyncError(async (req: Request, res: Response, nex
         await course?.save();
 
         if (req.user?._id === question.user._id) {
-            //create a notification
+            await notificationModel.create({
+                user: req.user?._id,
+                title:"New Question Reply Recieved",
+                message:`You have a new Question in ${courseContent.title}`,
+            })
         } else {
             const data = {
                 name: question.user.name,
@@ -357,3 +368,11 @@ export const addReplyToReview = CatchAsyncError(async (req: Request, res: Respon
     }
 });
 
+// get all courses --- only for admin
+export const getAllCoursees = CatchAsyncError(async (req: Request, res: Response, next: NextFunction)=>{
+    try {
+        getAllCoursesService(res);
+    }catch (error: any) {
+        return next(new ErrorHandler(error.message, 400));
+    }
+})

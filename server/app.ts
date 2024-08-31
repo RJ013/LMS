@@ -7,6 +7,7 @@ import cookieParser from "cookie-parser";
 import userRouter from "./routes/user.routes";
 import courseRouter from "./routes/course.route";
 import orderRouter from "./routes/order.route";
+import notificationRouter from "./routes/notification.route";
 import {ErrorMiddleware} from "./middleware/error";
 
 //body parser
@@ -26,6 +27,7 @@ app.use(cors({
 app.use("/api/v1",userRouter);
 app.use("/api/v1",courseRouter);
 app.use("/api/v1",orderRouter);
+app.use("/api/v1",notificationRouter);
 
 
 

@@ -9,7 +9,7 @@ import mongoose from "mongoose";
 import ejs from 'ejs';
 import path from "path";
 import sendMail from "../utils/sendMail";
-import { couldStartTrivia } from "typescript";
+
 
 
 
@@ -321,7 +321,7 @@ interface IAddReviewData {
     courseId: string;
     reviewId: string;
 }
-export const addReplyToReview = CatchAsyncError(async (req: Request, res: Response) => {
+export const addReplyToReview = CatchAsyncError(async (req: Request, res: Response, next:NextFunction) => {
     try {
         const { comment, courseId, reviewId } = req.body as IAddReviewData;
         const course = await CourseModel.findById(courseId);

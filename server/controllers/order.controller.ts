@@ -1,7 +1,7 @@
 import { NextFunction,Request,Response } from "express";
 import { CatchAsyncError } from "../middleware/catchAsyncErrors";
 import ErrorHandler from "../utils/ErrorHandler";
-import OrderMOdel,{IOrder} from "../models/order.Models";
+import OrderModel,{IOrder} from "../models/order.Models";
 import userModel from "../models/user.model";
 import CourseModel from "../models/course.model";
 import path from "path";
@@ -45,7 +45,7 @@ export const createOrder = CatchAsyncError(async(req: Request, res: Response, ne
             }
         }
 
-        const html = await ejs.renderFile(path.join(__dirname,'../mails/order-confirmation.ejs'),{ordre:mailData});
+        const html = await ejs.renderFile(path.join(__dirname,'../mails/order-confirmation.ejs'),{order:mailData});
 
         try {
             if(user){
@@ -75,7 +75,7 @@ export const createOrder = CatchAsyncError(async(req: Request, res: Response, ne
         }
 
         await course.save();
-        newOrder(data,res,next);
+       newOrder(data,res,next);
 
 
     } catch (error:any) {

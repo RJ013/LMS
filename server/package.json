@@ -1,7 +1,6 @@
 {
   "name": "server",
   "version": "1.0.0",
-  "main": "server/server.js",
   "type": "commonjs",
   "main":"build/server.js",
   "engines": {

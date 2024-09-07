@@ -10,7 +10,6 @@ import orderRouter from "./routes/order.route";
 import notificationRouter from "./routes/notification.route";
 import analyticRouter from "./routes/analytics.route";
 import {ErrorMiddleware} from "./middleware/error";
-import layoutRouter from "./routes/layout.route";
 
 //body parser
 app.use(express.json({limit: "50mb"}));
@@ -31,7 +30,6 @@ app.use("/api/v1",courseRouter);
 app.use("/api/v1",orderRouter);
 app.use("/api/v1",notificationRouter);
 app.use("/api/v1",analyticRouter);
-app.use("/api/v1",layoutRouter);
 
 
 

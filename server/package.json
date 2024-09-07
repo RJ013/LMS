@@ -1,8 +1,10 @@
 {
   "name": "server",
   "version": "1.0.0",
+  "main": "src/server/server.js",
+
   "type": "commonjs",
-  "main":"build/server.js",
+  // "main":"build/server.js",
   "engines": {
     "node": "18.x"
   },

@@ -19,10 +19,10 @@ app.use(cookieParser());
 
 //cors
 app.use(cors({
-    origin: process.env.ORIGIN,
-})
-);
-
+    origin: process.env.ORIGIN,  // This will be the string 'http://localhost:3000'
+    credentials: true  // If your API requires credentials (cookies or authentication)
+  }));
+  
 
 // routes
 app.use("/api/v1",userRouter);

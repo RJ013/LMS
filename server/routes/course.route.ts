@@ -1,5 +1,5 @@
 import express from "express";
-import { addAnswer, addQuestion, addReplyToReview, addReview, Cloudinaryurl, Curl, deleteCourse, editCourse, getAllCoursees, getAllCourses, getCourseByUser, getSingleCourse, uploadCourse, uploadToCloudinary } from "../controllers/course.controller";
+import { addAnswer, addQuestion, addReplyToReview, addReview, Cloudinaryurl, deleteCourse, editCourse, getAllCoursees, getAllCourses, getCourseByUser, getSingleCourse, uploadCourse } from "../controllers/course.controller";
 import { authorizeRoles, isAuthenticated } from "../middleware/auth";
 const courseRouter = express.Router();
 

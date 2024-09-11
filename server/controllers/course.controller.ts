@@ -414,7 +414,7 @@ cloudinary.v2.config({
   api_secret: process.env.CLOUDINARY_API_SECRET,
 });
 // Function to generate Cloudinary video URL
-export const Curl = CatchAsyncError(async (req: Request, res: Response, next: NextFunction) => {
+export const Cloudinaryurl = CatchAsyncError(async (req: Request, res: Response, next: NextFunction) => {
     try {
       const { videoId } = req.body;
   

@@ -378,7 +378,7 @@ export const getAllCoursees = CatchAsyncError(async (req: Request, res: Response
 })
 
 
-//delte course -- only for admin
+//delete course -- only for admin
 export const deleteCourse = CatchAsyncError(async (req: Request, res: Response, next: NextFunction)=>{
     try {
       const {id} = req.params;
@@ -402,3 +402,32 @@ export const deleteCourse = CatchAsyncError(async (req: Request, res: Response, 
         return next(new ErrorHandler(error.message, 400));
     }
 })
+
+
+
+// import cloudinary from 'cloudinary';
+
+// Configure Cloudinary
+cloudinary.v2.config({
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET,
+});
+// Function to generate Cloudinary video URL
+export const Curl = CatchAsyncError(async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const { videoId } = req.body;
+  
+      // Generate Cloudinary URL based on the public ID (videoId in this case)
+      const videoUrl = cloudinary.v2.url(videoId, {
+        resource_type: 'video', // Specify resource type as video
+        secure: true,           // Use secure HTTPS URL
+      });
+  
+      // Respond with the generated video URL
+      res.json({ videoUrl });
+    } catch (error: any) {
+      // Handle errors
+      return next(new ErrorHandler(error.message, 400));
+    }
+  });

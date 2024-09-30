@@ -39,13 +39,22 @@ export const editCourse = CatchAsyncError(
     try {
       const data = req.body;
       const thumbnail = data.thumbnail;
-      if (thumbnail) {
+      const courseId = req.params.id;
+    const courseData = await CourseModel.findById(courseId) as any;
+
+      if (thumbnail && !thumbnail.startsWith("https")) {
         await cloudinary.v2.uploader.destroy(thumbnail.public_id);
         const myCloud = await cloudinary.v2.uploader.upload(thumbnail, {
           folder: "courses",
         });
       }
-      const courseId = req.params.id;
+      
+      if (thumbnail.startsWith("https")) {
+       data.thumbnail={
+        public_id: courseData?.thumbnail.public_id,
+        url:courseData?.thumbnail.url,
+       };
+      }
 
       const course = await CourseModel.findByIdAndUpdate(
         courseId,
@@ -388,7 +397,7 @@ export const addReplyToReview = CatchAsyncError(
 );
 
 // get all courses --- only for admin
-export const getAllCoursees = CatchAsyncError(
+export const getAdminAllCourses = CatchAsyncError(
   async (req: Request, res: Response, next: NextFunction) => {
     try {
       getAllCoursesService(res);

@@ -318,7 +318,7 @@ export const addReview = CatchAsyncError(
 
       const reviewData: any = {
         user: req.user,
-        Comment: review,
+        comment: review,
         rating,
       };
 

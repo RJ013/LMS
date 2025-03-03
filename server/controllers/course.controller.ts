@@ -380,7 +380,7 @@ export const addReplyToReview = CatchAsyncError(
 
       const replyData: any = {
         user: req.user,
-        Comment,
+        comment,
         createdAt: new Date().toISOString(),
         updatedAt: new Date().toISOString(),
       };
